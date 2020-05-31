@@ -251,3 +251,6 @@ $ go version go1.<span class="hljs-number">11</span> linux/amd64
     <span class="hljs-string">"success"</span>: <span class="hljs-string">"Password successfully changed for - alice.mcdonnell@apple.com"</span>
 }
 </code></pre>
+
+<h2>License</h2>
+<p>This project is licensed under the <a href="https://github.com/Deeptiman/gorestledger/blob/master/LICENSE">MIT License</a></p>
