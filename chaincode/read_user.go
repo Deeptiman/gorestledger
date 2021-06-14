@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorestledger/chaincode/model"
-	"github.com/hyperledger/fabric/core/chaincode/shim"
-	pb "github.com/hyperledger/fabric/protos/peer"
+	"gorestledger/chaincode/model"
+
+	"github.com/hyperledger/fabric-chaincode-go/shim"
+	pb "github.com/hyperledger/fabric-protos-go/peer"
 )
 
 func (t *HelloWorldServiceChaincode) readUser(stub shim.ChaincodeStubInterface, args []string) pb.Response {
@@ -13,7 +14,7 @@ func (t *HelloWorldServiceChaincode) readUser(stub shim.ChaincodeStubInterface, 
 
 	indexName := "email"
 	userNameIndexKey, err := stub.CreateCompositeKey(indexName, []string{args[1]})
-	 
+
 	err = getFromLedger(stub, userNameIndexKey, args[1], &userData)
 	if err != nil {
 		return shim.Error(fmt.Sprintf("Unable to retrieve userData in the ledger: %v", err))
@@ -25,12 +26,11 @@ func (t *HelloWorldServiceChaincode) readUser(stub shim.ChaincodeStubInterface, 
 
 	err = stub.SetEvent("getUserInvoke", []byte{})
 	if err != nil {
-	   return shim.Error(err.Error())
+		return shim.Error(err.Error())
 	}
-	 
+
 	return shim.Success(userAsByte)
 }
-
 
 func (t *HelloWorldServiceChaincode) readAllUser(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
@@ -44,7 +44,7 @@ func (t *HelloWorldServiceChaincode) readAllUser(stub shim.ChaincodeStubInterfac
 	}
 
 	allUsersData := make([]model.UserData, 0)
-	
+
 	for iterator.HasNext() {
 		keyValueState, errIt := iterator.Next()
 		if errIt != nil {
@@ -57,8 +57,8 @@ func (t *HelloWorldServiceChaincode) readAllUser(stub shim.ChaincodeStubInterfac
 			fmt.Println("Unable to convert a user")
 			return shim.Error(fmt.Sprintf("Unable to convert a user: %v", err))
 		}
-		
-		fmt.Println("Append userdata : "+userdata.Name)
+
+		fmt.Println("Append userdata : " + userdata.Name)
 
 		allUsersData = append(allUsersData, userdata)
 	}
@@ -73,8 +73,8 @@ func (t *HelloWorldServiceChaincode) readAllUser(stub shim.ChaincodeStubInterfac
 
 	err = stub.SetEvent("getAllUsersInvoke", []byte{})
 	if err != nil {
-	   return shim.Error(err.Error())
+		return shim.Error(err.Error())
 	}
-	
+
 	return shim.Success(allUsersAsByte)
 }

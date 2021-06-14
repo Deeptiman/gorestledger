@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/gorestledger/blockchain"
+	"gorestledger/blockchain"
 )
 
 var PORT = "4000"

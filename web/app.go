@@ -5,7 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gorestledger/web/controllers"
+	"gorestledger/web/controllers"
+
 	"github.com/gorilla/mux"
 )
 

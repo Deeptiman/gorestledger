@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorestledger/blockchain"
-	"github.com/gorestledger/web"
-        "github.com/gorestledger/web/controllers"
+	"gorestledger/blockchain"
+	"gorestledger/web"
+	"gorestledger/web/controllers"
 	"os"
 )
 
@@ -12,23 +12,22 @@ func main() {
 	// Definition of the Fabric SDK properties
 	fSetup := blockchain.FabricSetup{
 		// Network parameters
-		OrdererID: 		"orderer.go.rest.ledger.com",
+		OrdererID: "orderer.go.rest.ledger.com",
 
 		// Channel parameters
-		ChannelID:      	"gorestledger",
-		ChannelConfig:  	os.Getenv("GOPATH") + "/src/github.com/gorestledger/fixtures/artifacts/gorestledger.channel.tx",
+		ChannelID:     "gorestledger",
+		ChannelConfig: os.Getenv("GOPATH") + "/src/gorestledger/fixtures/artifacts/gorestledger.channel.tx",
 
 		// Chaincode parameters
-		ChaincodeID:    	"gorestledger",
-		ChaincodeGoPath: 	os.Getenv("GOPATH"),
-		ChaincodePath:   	"github.com/gorestledger/chaincode/",
-		OrgAdmin:        	"Admin",
-		OrgName:         	"org1",
-		ConfigFile:      	"config.yaml",
+		ChaincodeID:     "gorestledger",
+		ChaincodeGoPath: os.Getenv("GOPATH"),
+		ChaincodePath:   "gorestledger/chaincode/",
+		OrgAdmin:        "Admin",
+		OrgName:         "org1",
+		ConfigFile:      "config.yaml",
 
 		// CA parameters
-		CaID:                	"ca.org1.go.rest.ledger.com",
-
+		CaID: "ca.org1.go.rest.ledger.com",
 	}
 
 	// Initialization of the Fabric SDK from the previously set properties
@@ -47,13 +46,8 @@ func main() {
 		return
 	}
 
-	
-
 	app := &controllers.Application{
 		Fabric: &fSetup,
 	}
 	web.Serve(app)
 }
-
-
-

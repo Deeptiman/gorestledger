@@ -3,7 +3,7 @@ package blockchain
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gorestledger/chaincode/model"
+	"gorestledger/chaincode/model"
 )
 
 func (user *FabricUser) GetUserFromLedger(emailValue string) (*model.UserData, error) {
@@ -17,18 +17,17 @@ func (user *FabricUser) GetUserFromLedger(emailValue string) (*model.UserData, e
 
 	eventID := "getUserInvoke"
 
-	response, err := user.ExecuteTranctionEvent(eventID, args[0], 
-		[][]byte{[]byte(args[1]), []byte(args[2]),})
-
+	response, err := user.ExecuteTranctionEvent(eventID, args[0],
+		[][]byte{[]byte(args[1]), []byte(args[2])})
 
 	if err != nil {
 		return nil, fmt.Errorf("Error - GetUserFromLedger : %s", err.Error())
-	}	
+	}
 
 	if response == nil {
 		return nil, fmt.Errorf("Error - No Response Received for GetUserFromLedger")
 	}
-	
+
 	fmt.Println("Response Received")
 
 	var userData *model.UserData
@@ -51,13 +50,13 @@ func (user *FabricUser) GetAllUsersFromLedger() ([]model.UserData, error) {
 
 	eventID := "getAllUsersInvoke"
 
-	response, err := user.ExecuteTranctionEvent(eventID, args[0], 
+	response, err := user.ExecuteTranctionEvent(eventID, args[0],
 		[][]byte{[]byte(args[1])})
 
 	if err != nil {
 		return nil, fmt.Errorf("Error - GetAllUsersFromLedger : %s", err.Error())
-	}	
-	
+	}
+
 	fmt.Println("Response Received")
 
 	allUsersData := make([]model.UserData, 0)
